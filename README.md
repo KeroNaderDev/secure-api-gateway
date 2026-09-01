@@ -1,47 +1,40 @@
-# secure-api-gateway-demo
+# 🔐 Secure API Gateway — Demo
 
-🔐 Secure API Gateway — Demo | Protects APIs with Rate Limit & Validation (Cybersecurity Track)
+Node.js/Express gateway that masks, validates, and rate-limits backend APIs
 
-> **Demo Showcase — Synthetic Data Only** — No personal data used.
+> **Cybersecurity Track — Demo Showcase** | **Real Problem, Synthetic Data**
 
 ## Overview
-Demo project that solves a real problem in **Cybersecurity** track. Built as a portfolio showcase with synthetic demo data.
+**Problem:** Exposed backend APIs are directly abused (no validation, no rate limit)
+
+**Solution:** Node.js/Express gateway that masks, validates, and rate-limits backend APIs This demo proves the engineering approach with synthetic data.
 
 ## Architecture
 ```
-Client → Secure Gateway → Backend API → Database
-        ↓
-   Security Layer (OWASP, Validation, Rate Limit)
+Client → Gateway (Validation → Rate Limit → Auth) → Backend API → DB
 ```
 
 ## Tech Stack
-- **Track:** Cybersecurity
-- See `package.json` / `requirements.txt` for full list
+- Node.js, Express, JWT, Helmet, Rate Limit
 
 ## Features
-- Solves real problem with demo data
-- Secure by design (validation, auth, RBAC where applicable)
-- Production-ready structure
+- Masking layer\n- JWT validation\n- Rate limiting (100 req/min)\n- Security headers
 
 ## Security
-- Input validation
-- Authentication & Authorization (JWT/RBAC)
-- API security best practices
-- No real secrets — demo only
+- Validation, JWT/RBAC, Rate limiting, No real secrets
 
 ## Screenshots
-![Demo Screenshot](./screenshots/demo.png)
-*Placeholder — add real screenshot*
+![Demo](./screenshots/demo.png)
 
 ## Demo
-Demo data: `demo-data.json` (synthetic)
-Live Demo: `https://kero.10001mb.com/demo/secure-api-gateway-demo` (placeholder)
+- **Demo Data:** `demo-data.json`
+- **Live:** `https://kero.10001mb.com/demo/secure-api-gateway-demo` *(placeholder)*
 
 ## Installation
 ```bash
 git clone https://github.com/KeroNaderDev/secure-api-gateway-demo.git
 cd secure-api-gateway-demo
-npm install # or pip install -r requirements.txt
+npm install
 cp .env.example .env
 npm run dev
 ```
@@ -49,13 +42,12 @@ npm run dev
 ## Usage
 ```bash
 npm run dev
-# Open http://localhost:3000
 ```
 
 ## What I Learned
-- Building Cybersecurity systems end-to-end
-- Securing APIs and infrastructure
-- Demo-driven portfolio design
+- Cybersecurity end-to-end design
+- Demo vs real data separation
+- Professional portfolio structure
 
 ---
-*Part of **Kero Nader** — Cybersecurity | Full Stack | DevOps | IoT — Track: Cybersecurity*
+*Track: Cybersecurity • Portfolio: [KeroNaderDev](https://github.com/KeroNaderDev)*
