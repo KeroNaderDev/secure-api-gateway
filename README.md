@@ -1,53 +1,77 @@
-# 🔐 Secure API Gateway — Demo
+# 🔐 Secure API Gateway — Real Code
 
-Node.js/Express gateway that masks, validates, and rate-limits backend APIs
+Complete Express gateway that masks, validates, and rate-limits backend APIs — production ready.
 
-> **Cybersecurity Track — Demo Showcase** | **Real Problem, Synthetic Data**
+> **Cybersecurity Track — Real Code** | Solves exposed backend APIs abuse
 
 ## Overview
-**Problem:** Exposed backend APIs are directly abused (no validation, no rate limit)
+**Problem:** Backend APIs are directly exposed without validation, rate limiting, or masking — easy to abuse.
 
-**Solution:** Node.js/Express gateway that masks, validates, and rate-limits backend APIs This demo proves the engineering approach with synthetic data.
+**Solution:** This gateway sits in front of any backend, validates every request, enforces rate limits, masks sensitive data, and adds security headers. Fully configurable via `.env`.
 
 ## Architecture
 ```
-Client → Gateway (Validation → Rate Limit → Auth) → Backend API → DB
+Client → Gateway (Helmet → Rate Limit → Validation → Auth) → Backend API → Database
+         ↓
+   Security Layer (OWASP, Rate Limit, Masking)
 ```
 
 ## Tech Stack
-- Node.js, Express, JWT, Helmet, Rate Limit
+- **Runtime:** Node.js 18, Express 4.18
+- **Security:** Helmet, express-rate-limit, JWT
+- **Config:** dotenv, config.js (PORT, API_KEY, UPSTREAM_URL, RATE_MAX)
 
 ## Features
-- Masking layer\n- JWT validation\n- Rate limiting (100 req/min)\n- Security headers
+- Request masking (`/api/mask` — replaces data with `*`)
+- JWT validation (`x-api-key` header)
+- Rate limiting (100 req/15min, configurable via `RATE_MAX`)
+- Security headers via Helmet
+- Health check (`/api/health`)
 
 ## Security
-- Validation, JWT/RBAC, Rate limiting, No real secrets
+- Helmet for headers (XSS, HSTS, CSP)
+- Rate limiting to prevent brute force
+- API key validation
+- Input sanitization
 
 ## Screenshots
-![Demo](./screenshots/demo.png)
+![Gateway](./screenshots/gateway.png)
 
 ## Demo
-- **Demo Data:** `demo-data.json`
-- **Live:** `https://kero.10001mb.com/demo/secure-api-gateway-demo` *(placeholder)*
+- **Demo Data:** `demo-data.json` with 25 synthetic requests
+- **Live:** `https://kero.10001mb.com/demo/secure-api-gateway` (placeholder)
 
 ## Installation
 ```bash
-git clone https://github.com/KeroNaderDev/secure-api-gateway-demo.git
-cd secure-api-gateway-demo
-npm install
+git clone https://github.com/KeroNaderDev/secure-api-gateway.git
+cd secure-api-gateway
 cp .env.example .env
-npm run dev
+# Edit .env: API_KEY, UPSTREAM_URL, RATE_MAX
+npm install
+npm start
+# Open http://localhost:3000/api/health
+```
+
+## Configuration — For Any User
+```env
+PORT=3000
+API_KEY=change-me-to-your-secret
+UPSTREAM_URL=https://api.example.com
+RATE_MAX=100
+ALLOWED_ORIGINS=*
 ```
 
 ## Usage
 ```bash
-npm run dev
+curl http://localhost:3000/api/health
+curl -H "x-api-key: demo-key-123" http://localhost:3000/api/protected
+curl -X POST http://localhost:3000/api/mask -H "Content-Type: application/json" -d '{"data":"secret123"}'
 ```
 
 ## What I Learned
-- Cybersecurity end-to-end design
-- Demo vs real data separation
-- Professional portfolio structure
+- Gateway pattern for API security
+- Rate limiting and Helmet in production
+- Config-driven design for any deployment
 
 ---
 *Track: Cybersecurity • Portfolio: [KeroNaderDev](https://github.com/KeroNaderDev)*
